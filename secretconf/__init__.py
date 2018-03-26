@@ -21,14 +21,15 @@ def hash32(data):
     return m.digest()
 
 def encrypt(data, private_key):
-    assert isinstance(data, bytes)
+    if isinstance(data, str):
+        data = data.encode()
+
     box = SecretBox(private_key)
     nonce = nacl.utils.random(SecretBox.NONCE_SIZE)
 
     return base64.b64encode(box.encrypt(data, nonce)).decode()
 
 def decrypt(data, private_key):
-    # assert isinstance(data, bytes)
     box = SecretBox(private_key)
     _bytes = base64.b64decode(data)
     return box.decrypt(_bytes).decode()
@@ -41,9 +42,7 @@ def make_config(section=None, data={}, config_path='/tmp/secrets.conf', private_
     conf[section] = {}
     for k, v in data.items():
         if k.startswith("__"):
-            # private key. 
-            v = encrypt(v.encode(), private_key)
-        print("Setting: ", section, k, v)
+            v = encrypt(v, private_key)
         conf[section][k] = v
 
     with open(config_path, "w") as cf:
@@ -84,12 +83,7 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
 def hush(section, privatekey, configpath, fields):
     from npyscreen import Form
     privatekey = os.path.expanduser(privatekey)
-    # configpath = os.path.expanduser(configpath)
-
-    print(section, privatekey, configpath, fields)
-
-
-    # assert os.path.exists(configpath)
+    configpath = os.path.expanduser(configpath)
     assert os.path.exists(privatekey)
 
     privatekey = open(privatekey, 'rb').read()
