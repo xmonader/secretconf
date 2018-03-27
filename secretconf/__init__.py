@@ -3,7 +3,6 @@
 
 __version__ = '0.1.0'
 __author__ = 'Ahmed Youssef <xmonader@gmail.com>'
-__all__ = []
 
 """
 secretconf file looks like this
