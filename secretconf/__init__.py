@@ -1,7 +1,11 @@
+"""secretconf - secret configurations easily"""
+
+
+__version__ = '0.1.0'
+__author__ = 'Ahmed Youssef <xmonader@gmail.com>'
+__all__ = []
+
 """
-secretconf - secret configurations easily
-
-
 secretconf file looks like this
 ```
 [sillyapp2]
@@ -23,10 +27,6 @@ hush --section sillyapp1 --fields 'user,__password'
 
 
 """
-
-__version__ = '0.1.0'
-__author__ = 'Ahmed Youssef <xmonader@gmail.com>'
-__all__ = []
 
 import os
 import base64
@@ -128,11 +128,12 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
     conf.read_file(open(config_path)) 
     
     for s in conf.sections():
-        data[s] = {}
+        secdict = {}
         for k, v in conf[s].items():
             if k.startswith("__"):
                 v = decrypt(v, private_key)
-            data[s][k] = v
+            secdict[k] = v
+        data[s] = secdict
 
     return data
 
@@ -142,7 +143,7 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
 @click.option('--section', default='', help='Section (Appname)')
 @click.option('--privatekey', default='~/.ssh/id_rsa', help='Privatekey path')
 @click.option('--configpath', default='/tmp/secrets.conf', help='Secret configuration path')
-@click.option('--fields', default='', help='quoted comma separated fields; secret fields are prefixed with _')
+@click.option('--fields', default='', help='quoted comma separated fields; secret fields are prefixed with __')
 def hush(section, privatekey, configpath, fields):
     privatekey = os.path.expanduser(privatekey)
     configpath = os.path.expanduser(configpath)
@@ -161,7 +162,7 @@ def hush(section, privatekey, configpath, fields):
     def curses_app(*args):
         form = npyscreen.Form()
         for f in fields:
-            w = form.add(npyscreen.TitleText, name=f, value=data.get(f, ''))
+            w = form.add(npyscreen.TitleText, name=f, value=data[section].get(f, ''))
             w._forfield = f 
             widgets.append(w)       
 
