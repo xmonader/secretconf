@@ -50,6 +50,12 @@ Installation
    cd secretconf && python3 setup.py install
 
 
+Testing
+------------
+You can use `pytest tests` or just `tox` make sure to `install requirements-test.txt`
+
+
+
 Requirements
 ------------
 
