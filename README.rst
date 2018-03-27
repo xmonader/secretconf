@@ -9,6 +9,10 @@ secretconf
    :target: https://travis-ci.org/xmonader/secretconf
    :alt: Latest Travis CI build status
 
+.. image:: https://codecov.io/gh/xmonader/secretconf/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/xmonader/secretconf
+
+
 Manage your secret configurations easily
 
 Usage
