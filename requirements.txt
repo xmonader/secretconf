@@ -2,4 +2,3 @@ setuptools==38.5.0
 click==6.7
 PyNaCl==1.2.1
 npyscreen==4.10.5
-nacl==0.0.0
