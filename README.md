@@ -9,15 +9,13 @@
 Manage your secret configurations easily
 
 # Installation
-```bash
-pip3 install secretconf --user
-```
+`pip3 install secretconf --user`
 
 
 # Usage
 secretconf is a library to manage (encrypt/decrypt) your credentials on demand using public key encryption.
 
-# Hush
+## Hush
 hush is a commandline utility installed with secretconf to make your life easier to store and update credentials
 
 ```bash
@@ -38,18 +36,52 @@ Options:
 
 ```
 
+### Data storage
+You can configure where to save the data using `--configpath` which is set to `/tmp/secrets.conf` by default. 
+```toml
+[twittermain]
+user = ahmed
+__token = eYCWre9l7IauoHs6K3D5J2wkgnQQBtFV4CoZE3W4tpbxa7Z7Qt+c/LnQhSI=
 
-# Installation
+```
+> Please notice that you can't use multiple keys on the same `configpath` file
 
--  `pip3 install secretconf`
+# API usage 
+secretconf [documentation](https://xmonader.github.io/secretconf/api/secretconf/)
 
-```bash
-   git clone https://github.com/xmonader/secretconf
-   cd secretconf && python3 setup.py install
+## make_config
+```python
+def test_make_config_creates_file_with_encrypted_data():
+    make_config(APPNAME, {'user': USER, '__password': PASSWORD},
+                config_path=TEST_CONFIG_PATH, private_key=hashedsk)
+
+    assert os.path.exists(TEST_CONFIG_PATH)
+    with open(TEST_CONFIG_PATH, 'r') as f:
+        content = f.read()
+        assert "user" in content
+        assert USER in content
+        assert "__password" in content
+        assert PASSWORD not in content
 ```
 
 
+## read_config
+
+```python
+    conf = read_config(APPNAME, config_path=TEST_CONFIG_PATH,
+                       private_key=hashedsk)
+    assert APPNAME in conf
+    assert 'user' in conf[APPNAME]
+    assert '__password' in conf[APPNAME]
+    assert conf[APPNAME]['user'] == USER
+    assert conf[APPNAME]['__password'] == PASSWORD
+```
+
 # Testing
+secretconf tests exists in [tests](./tests) directory 
+- basic tests `test_basic.py`: encryption/decryption and usage of `make_config` and `read_config`
+- property based tests `test_properties.py`
+
 You can use `pytest tests` or just `tox` make sure to `install requirements-test.txt` or `make test`
 
 
