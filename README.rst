@@ -17,7 +17,7 @@ Manage your secret configurations easily
 
 Usage
 -----
-secretconf is a library to manage (encrypt/decrypt) your credentials on demand using your private key.
+secretconf is a library to manage (encrypt/decrypt) your credentials on demand using public key encryption.
 
 ============
 Hush
