@@ -56,9 +56,12 @@ Installation
 
 Testing
 ------------
-You can use `pytest tests` or just `tox` make sure to `install requirements-test.txt`
+You can use `pytest tests` or just `tox` make sure to `install requirements-test.txt` or `make test`
 
 
+Generating Docs
+----------------
+make gendocs
 
 Requirements
 ------------
