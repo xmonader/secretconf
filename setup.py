@@ -8,8 +8,8 @@ setuptools.setup(
     author="Ahmed Youssef",
     author_email="xmonader@gmail.com",
 
-    description="secret configurations easily",
-    long_description=open('README.rst').read(),
+    description="manage your secrets and configurations easily",
+    long_description=open('README.md').read(),
 
     packages=setuptools.find_packages(),
 
