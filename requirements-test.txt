@@ -3,6 +3,7 @@ click==6.7
 PyNaCl==1.2.1
 npyscreen==4.10.5
 pytest
+hypothesis
 pytest-cov
 codecov
 tox
