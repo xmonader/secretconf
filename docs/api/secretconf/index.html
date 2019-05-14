@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.5.3" />
+<title>secretconf API documentation</title>
+<meta name="description" content="secretconf - secret configurations easily" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.name small{font-weight:normal}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title"><code>secretconf</code> module</h1>
+</header>
+<section id="section-intro">
+<p>secretconf - secret configurations easily</p>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">&#34;&#34;&#34;secretconf - secret configurations easily&#34;&#34;&#34;
+
+
+__version__ = &#39;0.1.0&#39;
+__author__ = &#39;Ahmed Youssef &lt;xmonader@gmail.com&gt;&#39;
+
+&#34;&#34;&#34;
+secretconf file looks like this
+```
+[sillyapp2]
+user = xmonader
+__password = RSE6sNZDb04mnQhF6bPRWW3SVrCyy+u13hpBiiman4XmBcip9N8Ga3q9O2sZxZadLqCd
+
+[sillyapp3]
+user = xmon121
+__password = rjR4gSRQCCfOu4q0g7GyUFXiTTocYyKMP+cWbuHL9QaPfh9a/pKxrZEfpiQbhQ==
+
+[sillyapp1]
+user = ash
+__password = 8wNHS635V5Dxu/aeX1T4xt+OuH2KFzLU4TgOSU90VzMZh2nDY9ui0yhFX8yzyg==
+```
+
+
+
+hush --section sillyapp1 --fields &#39;user,__password&#39;
+
+
+&#34;&#34;&#34;
+
+import os
+import base64
+import hashlib
+from configparser import ConfigParser
+import nacl.utils
+from nacl.public import PrivateKey, Box
+# from nacl.secret import SecretBox
+import click
+import npyscreen
+
+
+def hash32(data):
+    &#34;&#34;&#34;
+    Get sha256 of bytes
+
+    @param data bytes: usually the private_key to be used later with encrypt, decrypt functions.
+
+    returns sha256 digets of data bytes.
+    &#34;&#34;&#34;
+    m = hashlib.sha256()
+    m.update(data)
+    return m.digest()
+
+
+def encrypt(data, box):
+    &#34;&#34;&#34;
+    Encrypt data using private_key
+
+    @param data bytes : bytes to encrypt
+    @param box: nacl box to encrypt data
+
+    returns string of base64 encoded encrytped data using private_key
+    &#34;&#34;&#34;
+
+    if isinstance(data, str):
+        data = data.encode()
+
+    return base64.b64encode(box.encrypt(data)).decode()
+
+
+def decrypt(data, box):
+    &#34;&#34;&#34;
+    Decrypt data using private_key
+
+    @param data bytes : data to decrypt
+    @param private_key: nacl box to decrypt data
+
+    returns string of the original data 
+    &#34;&#34;&#34;
+    _bytes = base64.b64decode(data)
+    return box.decrypt(_bytes).decode()
+
+
+def make_config(section=None, data=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;):
+    &#34;&#34;&#34;
+    stores credentials section or app with data in specific configuration path using a private key
+    data keys prefixed with __ are considered private and will be encrypted.
+
+    @param section str: application or section name.
+        e.g: myapp, githubuser, gitlaborg
+    @param data dict: dict of fields and their values [fields prefixed with __ are private]
+        e.g: {&#39;name&#39;: &#39;xmonader&#39;, &#39;__password&#39;: &#39;notmypassword&#39;}
+
+    @param config_path str: secretconf path defaults to /tmp/secrets.conf
+    @param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)
+     &#34;&#34;&#34;
+    data = data or {}
+    if not os.path.exists(config_path):
+        os.mknod(config_path)
+    conf = ConfigParser()
+    conf.read_file(open(config_path))
+    conf[section] = {}
+    sk = PrivateKey(private_key)
+    pk = sk.public_key
+    box = Box(sk, pk)
+
+    for k, v in data.items():
+        if k.startswith(&#34;__&#34;):
+            v = encrypt(v, box)
+        conf[section][k] = v
+
+    with open(config_path, &#34;w&#34;) as cf:
+        conf.write(cf)
+
+
+def read_config(section=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;):
+    &#34;&#34;&#34;
+    reads credentials section or app with data in specific configuration path using a private key
+    data keys prefixed with __ are considered private and will be encrypted.
+
+    @param section str: application or section name.
+        e.g: myapp, githubuser, gitlaborg
+    @param config_path str: secretconf path defaults to /tmp/secrets.conf
+    @param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)
+     &#34;&#34;&#34;
+
+    data = {}
+    if not os.path.exists(config_path):
+        os.mknod(config_path)
+
+    conf = ConfigParser()
+    conf.read_file(open(config_path))
+
+    sk = PrivateKey(private_key)
+    pk = sk.public_key
+    box = Box(sk, pk)
+
+    for s in conf.sections():
+        secdict = {}
+        for k, v in conf[s].items():
+            if k.startswith(&#34;__&#34;):
+                v = decrypt(v, box)
+            secdict[k] = v
+        data[s] = secdict
+
+    return data
+
+
+# TODO: support passphrases and use ssh-key in agent.
+@click.command()
+@click.option(&#39;--section&#39;, default=&#39;&#39;, help=&#39;Section (Appname)&#39;)
+@click.option(&#39;--privatekey&#39;, default=&#39;~/.ssh/id_rsa&#39;, help=&#39;Privatekey path&#39;)
+@click.option(&#39;--configpath&#39;, default=&#39;/tmp/secrets.conf&#39;, help=&#39;Secret configuration path&#39;)
+@click.option(&#39;--fields&#39;, default=&#39;&#39;, help=&#39;quoted comma separated fields; secret fields are prefixed with __&#39;)
+def hush(section, privatekey, configpath, fields):
+    privatekey = os.path.expanduser(privatekey)
+    configpath = os.path.expanduser(configpath)
+    assert os.path.exists(privatekey)
+
+    privatekey = open(privatekey, &#39;rb&#39;).read()
+    privatekey = hash32(privatekey)
+
+    widgets = []
+
+    data = read_config(section, configpath, privatekey)
+    if section not in data:
+        data[section] = {}
+    fields = [f.strip() for f in fields.split(&#34;,&#34;)]
+
+    def curses_app(*args):
+        form = npyscreen.Form()
+        for f in fields:
+            w = form.add(npyscreen.TitleText, name=f,
+                         value=data[section].get(f, &#39;&#39;))
+            w._forfield = f
+            widgets.append(w)
+
+        form.edit()
+        for w in widgets:
+            data[section][w._forfield] = w.value
+
+    npyscreen.wrapper_basic(curses_app)
+    make_config(section=section, data=data[section],
+                config_path=configpath, private_key=privatekey)
+
+
+if __name__ == &#39;__main__&#39;:
+    hush()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="secretconf.decrypt"><code class="name flex">
+<span>def <span class="ident">decrypt</span></span>(<span>data, box)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Decrypt data using private_key</p>
+<p>@param data bytes : data to decrypt
+@param private_key: nacl box to decrypt data</p>
+<p>returns string of the original data</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def decrypt(data, box):
+    &#34;&#34;&#34;
+    Decrypt data using private_key
+
+    @param data bytes : data to decrypt
+    @param private_key: nacl box to decrypt data
+
+    returns string of the original data 
+    &#34;&#34;&#34;
+    _bytes = base64.b64decode(data)
+    return box.decrypt(_bytes).decode()</code></pre>
+</details>
+</dd>
+<dt id="secretconf.encrypt"><code class="name flex">
+<span>def <span class="ident">encrypt</span></span>(<span>data, box)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Encrypt data using private_key</p>
+<p>@param data bytes : bytes to encrypt
+@param box: nacl box to encrypt data</p>
+<p>returns string of base64 encoded encrytped data using private_key</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def encrypt(data, box):
+    &#34;&#34;&#34;
+    Encrypt data using private_key
+
+    @param data bytes : bytes to encrypt
+    @param box: nacl box to encrypt data
+
+    returns string of base64 encoded encrytped data using private_key
+    &#34;&#34;&#34;
+
+    if isinstance(data, str):
+        data = data.encode()
+
+    return base64.b64encode(box.encrypt(data)).decode()</code></pre>
+</details>
+</dd>
+<dt id="secretconf.hash32"><code class="name flex">
+<span>def <span class="ident">hash32</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get sha256 of bytes</p>
+<p>@param data bytes: usually the private_key to be used later with encrypt, decrypt functions.</p>
+<p>returns sha256 digets of data bytes.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def hash32(data):
+    &#34;&#34;&#34;
+    Get sha256 of bytes
+
+    @param data bytes: usually the private_key to be used later with encrypt, decrypt functions.
+
+    returns sha256 digets of data bytes.
+    &#34;&#34;&#34;
+    m = hashlib.sha256()
+    m.update(data)
+    return m.digest()</code></pre>
+</details>
+</dd>
+<dt id="secretconf.make_config"><code class="name flex">
+<span>def <span class="ident">make_config</span></span>(<span>section=None, data=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>stores credentials section or app with data in specific configuration path using a private key
+data keys prefixed with __ are considered private and will be encrypted.</p>
+<p>@param section str: application or section name.
+e.g: myapp, githubuser, gitlaborg
+@param data dict: dict of fields and their values [fields prefixed with __ are private]
+e.g: {'name': 'xmonader', '__password': 'notmypassword'}</p>
+<p>@param config_path str: secretconf path defaults to /tmp/secrets.conf
+@param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def make_config(section=None, data=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;):
+    &#34;&#34;&#34;
+    stores credentials section or app with data in specific configuration path using a private key
+    data keys prefixed with __ are considered private and will be encrypted.
+
+    @param section str: application or section name.
+        e.g: myapp, githubuser, gitlaborg
+    @param data dict: dict of fields and their values [fields prefixed with __ are private]
+        e.g: {&#39;name&#39;: &#39;xmonader&#39;, &#39;__password&#39;: &#39;notmypassword&#39;}
+
+    @param config_path str: secretconf path defaults to /tmp/secrets.conf
+    @param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)
+     &#34;&#34;&#34;
+    data = data or {}
+    if not os.path.exists(config_path):
+        os.mknod(config_path)
+    conf = ConfigParser()
+    conf.read_file(open(config_path))
+    conf[section] = {}
+    sk = PrivateKey(private_key)
+    pk = sk.public_key
+    box = Box(sk, pk)
+
+    for k, v in data.items():
+        if k.startswith(&#34;__&#34;):
+            v = encrypt(v, box)
+        conf[section][k] = v
+
+    with open(config_path, &#34;w&#34;) as cf:
+        conf.write(cf)</code></pre>
+</details>
+</dd>
+<dt id="secretconf.read_config"><code class="name flex">
+<span>def <span class="ident">read_config</span></span>(<span>section=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>reads credentials section or app with data in specific configuration path using a private key
+data keys prefixed with __ are considered private and will be encrypted.</p>
+<p>@param section str: application or section name.
+e.g: myapp, githubuser, gitlaborg
+@param config_path str: secretconf path defaults to /tmp/secrets.conf
+@param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def read_config(section=None, config_path=&#39;/tmp/secrets.conf&#39;, private_key=&#39;&#39;):
+    &#34;&#34;&#34;
+    reads credentials section or app with data in specific configuration path using a private key
+    data keys prefixed with __ are considered private and will be encrypted.
+
+    @param section str: application or section name.
+        e.g: myapp, githubuser, gitlaborg
+    @param config_path str: secretconf path defaults to /tmp/secrets.conf
+    @param private_key: key of 32 bytes (you should use sha256 or hash32 function on the bytes of your private key)
+     &#34;&#34;&#34;
+
+    data = {}
+    if not os.path.exists(config_path):
+        os.mknod(config_path)
+
+    conf = ConfigParser()
+    conf.read_file(open(config_path))
+
+    sk = PrivateKey(private_key)
+    pk = sk.public_key
+    box = Box(sk, pk)
+
+    for s in conf.sections():
+        secdict = {}
+        for k, v in conf[s].items():
+            if k.startswith(&#34;__&#34;):
+                v = decrypt(v, box)
+            secdict[k] = v
+        data[s] = secdict
+
+    return data</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="secretconf.decrypt" href="#secretconf.decrypt">decrypt</a></code></li>
+<li><code><a title="secretconf.encrypt" href="#secretconf.encrypt">encrypt</a></code></li>
+<li><code><a title="secretconf.hash32" href="#secretconf.hash32">hash32</a></code></li>
+<li><code><a title="secretconf.make_config" href="#secretconf.make_config">make_config</a></code></li>
+<li><code><a title="secretconf.read_config" href="#secretconf.read_config">read_config</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.5.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
