@@ -22,5 +22,4 @@ box = Box(hsk, hpk)
 
 @given(text())
 def test_decode_inverts_encode(s):
-    pass
     assert decrypt(encrypt(s, box), box) == s
