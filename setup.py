@@ -15,7 +15,7 @@ setuptools.setup(
 
     install_requires=[],
     entry_points={
-        'console_scripts': ['hush=secretconf:hush']
+        'console_scripts': ['hush=secretconf:hush', 'hush_keygen=secretconf:hush_keygen']
     },
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

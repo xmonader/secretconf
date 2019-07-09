@@ -33,6 +33,7 @@ import hashlib
 from configparser import ConfigParser
 import nacl.utils
 from nacl.public import PrivateKey, Box
+import nacl.encoding
 # from nacl.secret import SecretBox
 import click
 import npyscreen
@@ -99,7 +100,8 @@ def make_config(section=None, data=None, config_path='/tmp/secrets.conf', privat
     conf = ConfigParser()
     conf.read_file(open(config_path))
     conf[section] = {}
-    sk = PrivateKey(private_key)
+    sk = PrivateKey(private_key, nacl.encoding.Base64Encoder())
+
     pk = sk.public_key
     box = Box(sk, pk)
 
@@ -130,7 +132,7 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
     conf = ConfigParser()
     conf.read_file(open(config_path))
 
-    sk = PrivateKey(private_key)
+    sk = PrivateKey(private_key, nacl.encoding.Base64Encoder())
     pk = sk.public_key
     box = Box(sk, pk)
 
@@ -143,6 +145,23 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
         data[s] = secdict
 
     return data
+
+@click.command()
+@click.option('--name', help='Keypair name')
+def hush_keygen(name):
+    if not name:
+        print("didn't specify --name. will generate (mykey.priv, mykey.pub)")
+        name = "mykey"
+    hsk = PrivateKey.generate()
+    hpk = hsk.public_key
+    cwd = os.getcwd()
+
+    skpath = os.path.join(cwd, name + ".priv")
+    pkpath = os.path.join(cwd, name + ".pub")
+    with open(skpath, "wb") as f:
+        f.write(hsk.encode(nacl.encoding.Base64Encoder()))
+    with open(pkpath, "wb") as f:
+        f.write(hpk.encode(nacl.encoding.Base64Encoder()))
 
 
 # TODO: support passphrases and use ssh-key in agent.
@@ -157,7 +176,7 @@ def hush(section, privatekey, configpath, fields):
     assert os.path.exists(privatekey)
 
     privatekey = open(privatekey, 'rb').read()
-    privatekey = hash32(privatekey)
+    # privatekey = hash32(privatekey)
 
     widgets = []
 
