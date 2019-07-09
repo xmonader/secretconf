@@ -1,0 +1,14 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+click = "==6.7"
+npyscreen = "==4.10.5"
+PyNaCl = "==1.2.1"
+
+[requires]
+python_version = "3.6"

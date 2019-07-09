@@ -2,8 +2,7 @@
 
 import nacl.utils
 from nacl.public import PrivateKey, Box
-from nacl.secret import SecretBox
-import nacl.signing
+import nacl.encoding
 import os
 from secretconf import *
 
@@ -11,11 +10,9 @@ USER = "ahmed"
 PASSWORD = "weakpassword"
 APPNAME = 'twitter_app1'
 
-sk = nacl.signing.SigningKey.generate()
-pk = sk.verify_key
-hashedsk = hash32(sk.encode())
 
-hsk = PrivateKey(hashedsk)
+hsk = PrivateKey.generate()
+hashedsk = hsk.encode(nacl.encoding.Base64Encoder())
 hpk = hsk.public_key
 box = Box(hsk, hpk)
 
