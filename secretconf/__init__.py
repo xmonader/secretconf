@@ -96,6 +96,7 @@ def make_config(section=None, data=None, config_path='/tmp/secrets.conf', privat
      """
     data = data or {}
     if not os.path.exists(config_path):
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
         os.mknod(config_path)
     conf = ConfigParser()
     conf.read_file(open(config_path))
@@ -113,6 +114,7 @@ def make_config(section=None, data=None, config_path='/tmp/secrets.conf', privat
     with open(config_path, "w") as cf:
         conf.write(cf)
 
+save_config = write_config = make_config
 
 def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
     """
@@ -127,6 +129,7 @@ def read_config(section=None, config_path='/tmp/secrets.conf', private_key=''):
 
     data = {}
     if not os.path.exists(config_path):
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
         os.mknod(config_path)
 
     conf = ConfigParser()
