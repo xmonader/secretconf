@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="secretconf",
-    version="0.1.1",
+    version="0.1.2",
     url="https://github.com/xmonader/secretconf",
 
     author="Ahmed Youssef",
@@ -10,7 +10,7 @@ setuptools.setup(
 
     description="manage your secrets and configurations easily",
     long_description=open('README.md').read(),
-
+    long_description_content_type='text/markdown',
     packages=setuptools.find_packages(),
 
     install_requires=[],
